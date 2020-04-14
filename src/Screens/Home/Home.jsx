@@ -8,7 +8,7 @@ export default function home() {
       <h1 className="header">Welcome!</h1>
       <div className="grid">
         <div className="links">
-          <Link to="profile">link do profilu</Link>
+          <Link to="myPhotos">link do profilu</Link>
           <Link to="login">Login page</Link>
           <Link to="register">Register page</Link>
         </div>
