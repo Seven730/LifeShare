@@ -9,7 +9,7 @@ import * as serviceWorker from "./serviceWorker";
 // var config = {};
 // firebase.initializeApp(config);
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <BrowserRouter>
     <React.StrictMode>
       <App />

@@ -1,8 +1,8 @@
 import React from "react";
-import "./Login.css";
+import "./LoginStyle.css";
 import { Link } from "react-router-dom";
 
-export default function login() {
+export default function Login() {
   return (
     <div>
       <div>

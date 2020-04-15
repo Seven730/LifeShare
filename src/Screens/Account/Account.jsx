@@ -1,8 +1,8 @@
 import React from "react";
-import "./Account.css";
+import "./AccountStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 
-export default function account() {
+export default function Account() {
   return (
     <div>
       <NavigationBar />
