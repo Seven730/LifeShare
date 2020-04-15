@@ -1,17 +1,13 @@
 import React from "react";
-import "./MyPhotos.css";
+import "./MyPhotosStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 
-export default function myPhotos() {
+export default function MyPhotos() {
   return (
     <div>
       <NavigationBar />
       <div>
-        <h1>
-          My Photos - if you have no images, there is an information like
-          "Upload your first picture!" else it shows your pictures in cards or
-          smth
-        </h1>
+        <h1 className="info">No images yet? Upload your first picture!</h1>
       </div>
     </div>
   );

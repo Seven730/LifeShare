@@ -1,8 +1,8 @@
 import React from "react";
-import "./Register.css";
+import "./RegisterStyle.css";
 import { Link } from "react-router-dom";
 
-export default function register() {
+export default function Register() {
   return (
     <div>
       <div>

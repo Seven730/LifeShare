@@ -1,8 +1,8 @@
 import React from "react";
-import "./AddPicture.css";
+import "./AddPictureStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 
-export default function addPicture() {
+export default function AddPicture() {
   return (
     <div>
       <NavigationBar />

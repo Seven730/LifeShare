@@ -1,8 +1,8 @@
 import React from "react";
-import "./ImageGallery.css";
+import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 
-export default function myPhotos() {
+export default function ImageGallery() {
   return (
     <div>
       <NavigationBar />
