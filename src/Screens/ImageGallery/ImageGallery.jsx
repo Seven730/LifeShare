@@ -2,7 +2,8 @@ import React from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 
-export default function ImageGallery() {
+export function ImageGallery() {
+
   return (
     <div>
       <NavigationBar />
@@ -16,3 +17,6 @@ export default function ImageGallery() {
     </div>
   );
 }
+
+export const path = "/imageGallery"
+
