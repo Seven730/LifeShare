@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HomeStyle.css";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import ConditionalLoginOrRegister from "./ConditionalLoginOrRegister";
+import UserAuthenticationHandler from '../../Handlers/UserAuthenticationHandler'
 
-export default function Home() {
+export function Home() {
+  const [isLoggedIn, changeLoginStatus] = useState(false)
+
+  UserAuthenticationHandler.addListener(user => changeLoginStatus(!!user))
+
   return (
     <div className="grid">
       <div id="left">
@@ -15,13 +21,7 @@ export default function Home() {
           </p>
         </div>
         <div>
-          {" "}
-          <Link to="login">
-            <Button variant="light">Sign In</Button>
-          </Link>{" "}
-          <Link to="register">
-            <Button variant="dark">Sign Up</Button>
-          </Link>{" "}
+          <ConditionalLoginOrRegister loggedIn={isLoggedIn}/>
           <Button variant="info">Download the app!</Button>{" "}
           <Link to="myPhotos">link do My photos</Link>
         </div>
@@ -30,8 +30,10 @@ export default function Home() {
         <img
           className="homeIMG"
           src="https://previews.123rf.com/images/lanak/lanak1012/lanak101200262/8477029-happy-cute-little-girl-in-the-wheat-field-on-a-warm-summer-day.jpg"
+          alt="home screen"
         ></img>
       </div>
     </div>
   );
 }
+export const path = "/"
