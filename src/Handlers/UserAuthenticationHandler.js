@@ -46,10 +46,20 @@ export default class UserAuthenticationHandler {
     }
 
     static register(state, onErrorMessageHandler) {
+<<<<<<< HEAD
         const { email, password } = state;
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
                 UserAuthenticationHandler.redirectToImages()
+=======
+        const { email, password, username } = state;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((user) => {
+                firebase.auth().currentUser.updateProfile({displayName:username})
+                .then(user=>{
+                    UserAuthenticationHandler.redirectToImages()
+                })
+>>>>>>> c9e6670853d81c73bb4e61f56bb4fabc6a7c2934
             })
             .catch((error) => {
                 console.error(error)

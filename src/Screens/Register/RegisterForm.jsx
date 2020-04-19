@@ -23,7 +23,12 @@ export default function RegisterForm() {
 
         UserAuthenticationHandler.register({
             email,
+<<<<<<< HEAD
             password
+=======
+            password,
+            username
+>>>>>>> c9e6670853d81c73bb4e61f56bb4fabc6a7c2934
         }, handleError)
     }
 
