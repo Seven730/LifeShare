@@ -11,24 +11,20 @@ export default function RegisterForm() {
     const [errorMessage, setErrorMessage] = useState("")
 
 
-    const handleError = (...args) => { setErrorMessage(...args)}
+    const handleError = (...args) => { setErrorMessage(...args) }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const result = UserAuthenticationHandler.validateRegistration({password, passwordRepeat})
-        if(result.error) {
+        const result = UserAuthenticationHandler.validateRegistration({ password, passwordRepeat })
+        if (result.error) {
             handleError(result.message)
             return
         }
 
         UserAuthenticationHandler.register({
             email,
-<<<<<<< HEAD
-            password
-=======
             password,
             username
->>>>>>> c9e6670853d81c73bb4e61f56bb4fabc6a7c2934
         }, handleError)
     }
 
@@ -72,9 +68,9 @@ export default function RegisterForm() {
             </Form.Group>
             <Button className={"btn btn-primary btn-block"} type="submit">Submit</Button>
             <p className="forgot-password text-right">
-                    Already registered <a href="#">sign in?</a>
+                Already registered <a href="#">sign in?</a>
             </p>
-            <ConditionalError errorMessage={errorMessage}/>
+            <ConditionalError errorMessage={errorMessage} />
         </Form>
     )
 }
