@@ -13,3 +13,10 @@
   color: white;
   margin-top: 0.5%;
 }
+
+.signOut {
+  margin-top: 0.5%;
+  margin-left: 2%;
+  color: grey;
+  cursor: pointer;
+}

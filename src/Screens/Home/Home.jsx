@@ -3,12 +3,12 @@ import "./HomeStyle.css";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ConditionalLoginOrRegister from "./ConditionalLoginOrRegister";
-import UserAuthenticationHandler from '../../Handlers/UserAuthenticationHandler'
+import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
 
 export function Home() {
-  const [isLoggedIn, changeLoginStatus] = useState(false)
+  const [isLoggedIn, changeLoginStatus] = useState(false);
 
-  UserAuthenticationHandler.addListener(user => changeLoginStatus(!!user))
+  UserAuthenticationHandler.addListener((user) => changeLoginStatus(!!user));
 
   return (
     <div className="grid">
@@ -21,7 +21,7 @@ export function Home() {
           </p>
         </div>
         <div>
-          <ConditionalLoginOrRegister loggedIn={isLoggedIn}/>
+          <ConditionalLoginOrRegister loggedIn={isLoggedIn} />
           <Button variant="info">Download the app!</Button>{" "}
           <Link to="myPhotos">link do My photos</Link>
         </div>
@@ -29,11 +29,11 @@ export function Home() {
       <div id="right">
         <img
           className="homeIMG"
-          src="https://previews.123rf.com/images/lanak/lanak1012/lanak101200262/8477029-happy-cute-little-girl-in-the-wheat-field-on-a-warm-summer-day.jpg"
-          alt="home screen"
+          src="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+          alt="home screen img"
         ></img>
       </div>
     </div>
   );
 }
-export const path = "/"
+export const path = "/";

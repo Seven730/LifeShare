@@ -4,10 +4,8 @@ import RegisterForm from "./RegisterForm";
 
 export default function Register() {
   return (
-    <div className={'grid'}>
-      <div className={'card'}>
-        <RegisterForm />
-      </div>
+    <div>
+      <RegisterForm />
       {/* <Link to="/">back</Link> */}
     </div>
   );
