@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./NavigationBarStyle.css";
 import { Navbar, Nav } from "react-bootstrap";
-import UserAuthenticationHandler from "../Handlers/UserAuthenticationHandler"
+import UserAuthenticationHandler from "../Handlers/UserAuthenticationHandler";
 
 export default function NavigationBar() {
-  const [user, setUser] = useState({})
-  
-  UserAuthenticationHandler.addListener((user) => setUser(user))
+  const [user, setUser] = useState({});
+
+  UserAuthenticationHandler.addListener((user) => setUser(user));
 
   return (
     <div>
@@ -21,7 +21,9 @@ export default function NavigationBar() {
           <Nav.Link href="post">Post a picture!</Nav.Link>
         </Nav>
         <h5 className="name">{user.email}</h5>
-        <h5 onClick={UserAuthenticationHandler.signOut}>sign out</h5>
+        <h5 className="signOut" onClick={UserAuthenticationHandler.signOut}>
+          Sign Out
+        </h5>
       </Navbar>
     </div>
   );

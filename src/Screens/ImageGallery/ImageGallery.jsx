@@ -1,22 +1,15 @@
 import React from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
+import ImageCard from "./ImageCard";
 
 export function ImageGallery() {
-
   return (
     <div>
       <NavigationBar />
-      <div>
-        <h1>
-          ImageGallery - pictures that every user uploaded, possibly in random
-          order. One card contains picture, button to "heart" it, number of
-          likes, user name and user provided description
-        </h1>
-      </div>
+      <ImageCard />
     </div>
   );
 }
 
-export const path = "/imageGallery"
-
+export const path = "/imageGallery";

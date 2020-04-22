@@ -1,0 +1,39 @@
+.imageCard {
+  width: 70vh;
+  margin-top: 5vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5vh;
+  height: auto;
+}
+
+.imgCardIMG {
+  max-width: 70vh;
+  max-height: 70vh;
+}
+
+.imgCardBar {
+  display: flex;
+  justify-content: center;
+}
+
+.imgCardBottom {
+  display: flex;
+  margin: auto;
+  justify-content: flex-end;
+  float: right;
+}
+
+.heartIcon {
+  width: 5%;
+  height: auto;
+  margin-bottom: auto;
+}
+
+.title.giveItAHeart {
+  margin-right: 10px;
+}
+
+.title.titleCounter {
+  margin-left: 8px;
+}
