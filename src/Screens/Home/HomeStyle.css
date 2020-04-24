@@ -1,4 +1,9 @@
+.homePage {
+  background: green !important;
+}
+
 .header {
+  margin-top: 20vh;
   display: flex;
   justify-content: center;
   font-family: "Kaushan Script", cursive;
@@ -8,6 +13,11 @@
 .description {
   font-size: 170%;
   font-family: "Quicksand", sans-serif;
+  width: 40%;
+}
+
+.homeButtons {
+  width: calc(12% - 10px);
 }
 
 .grid {
@@ -38,6 +48,4 @@
 }
 
 body {
-  background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
 }
-/* po zmniejszeniu powinien znikać obrazek i zostawałaby sama lewa strona #TODO */

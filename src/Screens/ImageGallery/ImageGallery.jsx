@@ -2,12 +2,17 @@ import React from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 import ImageCard from "./ImageCard";
+import { CardDeck } from "react-bootstrap";
 
 export function ImageGallery() {
   return (
     <div>
       <NavigationBar />
-      <ImageCard />
+      <CardDeck className="imageCardDeck">
+        <ImageCard />
+        <ImageCard />
+        <ImageCard />
+      </CardDeck>
     </div>
   );
 }
