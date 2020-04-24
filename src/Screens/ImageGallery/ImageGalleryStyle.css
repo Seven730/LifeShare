@@ -1,10 +1,16 @@
+.imageCardDeck {
+  display: flex;
+  justify-content: center;
+  /* display: inline; */
+  /* margin-left: 70px; */
+  /* margin-right: 5%; */
+}
+
 .imageCard {
   width: 70vh;
-  margin-top: 5vh;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5vh;
+  margin-top: 15%;
   height: auto;
+  display: inline;
 }
 
 .imgCardIMG {
@@ -25,7 +31,7 @@
 }
 
 .heartIcon {
-  width: 5%;
+  width: 30px;
   height: auto;
   margin-bottom: auto;
 }
@@ -37,3 +43,16 @@
 .title.titleCounter {
   margin-left: 8px;
 }
+
+@media screen and (max-width: 70vh) {
+  .imageCardDeck {
+    display: inline;
+  }
+  .imageCard {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+/* @media screen and (max-width: 740px) {
+} */

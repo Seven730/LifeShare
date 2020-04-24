@@ -47,7 +47,11 @@ export default function EmailLoginForm() {
           placeholder="Enter your password"
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button
+        className={"btn btn-primary btn-block"}
+        variant="primary"
+        type="submit"
+      >
         Submit
       </Button>
       <ConditionalError errorMessage={errorMessage} />
