@@ -81,7 +81,23 @@ export default class UserAuthenticationHandler {
         const user = AUTH().currentUser
         if (!user) return
         user.updateProfile({ displayName: username })
-        .then(() => UserAuthenticationHandler.redirectToHome())
+            .then(() => UserAuthenticationHandler.redirectToHome())
+            .catch(error => {
+                console.error(error)
+                return onErrorMessageHandler(error.message)
+            })
+    }
+
+    static changePassword(password, passwordRepeat, onErrorMessageHandler = () => { }) {
+        const user = AUTH().currentUser
+        if (!user) return
+        const result = UserAuthenticationHandler.validateRegistration({ password, passwordRepeat })
+        if (result.error) {
+            onErrorMessageHandler(result.message)
+            return
+        }
+        user.updatePassword(password)
+            .then(() => UserAuthenticationHandler.redirectToHome())
             .catch(error => {
                 console.error(error)
                 return onErrorMessageHandler(error.message)
@@ -98,5 +114,6 @@ export default class UserAuthenticationHandler {
         history.push(HomePath)
         history.go()
     }
+    
 
 }

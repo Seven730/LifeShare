@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AccountStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
-import { Accordion } from "react-bootstrap"
+import { Accordion, Button } from "react-bootstrap"
 import AccordionCard from "./AccordionCard"
 import UpdateForm from "./UpdateForm"
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
@@ -13,6 +13,9 @@ export default function Account() {
   const [errorMessage, setError]  = useState("")
   UserAuthenticationHandler.addListener((user) => setUser(user));
   UserUpdateHandler.errorHandler = setError
+
+  if (!user)UserAuthenticationHandler.redirectToHome()
+
   return (
     <div>
       <NavigationBar />
@@ -22,7 +25,7 @@ export default function Account() {
           <h1>Current name: {user.displayName}</h1>
           <ConditionalError errorMessage={errorMessage} />
 
-          <Accordion defaultActiveKey="0">
+          <Accordion>
             <AccordionCard header="Update your e-mail address" eventKey="0">
               <UpdateForm
                 value=""
@@ -41,10 +44,10 @@ export default function Account() {
               placeholder="enter new password"
               auxPlaceholder="confirm new password"
               type="password"
-              submitCallback={() => { }}
+              submitCallback={UserUpdateHandler.changePassword}
             /></AccordionCard>
           </Accordion>
-          <button>Sign out / Logout</button>
+          <Button type="secondary" onClick={UserAuthenticationHandler.signOut}>Sign out / Logout</Button>
         </div>
 
       </div>

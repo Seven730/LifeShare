@@ -4,10 +4,10 @@ import { Form, Button } from 'react-bootstrap'
 
 export default function UpdateForm(props) {
 
-  const [value, setValue] = useState({ value: props.value, auxValue: props.auxValue })
-  
+  const [value, setValue] = useState({ value: props.value, auxValue: props.auxValue, password: "" })
+
   return (
-    <Form onSubmit={props.submitCallback}>
+    <Form>
       <Form.Control
         id="primary"
         value={value.value}
@@ -15,7 +15,7 @@ export default function UpdateForm(props) {
         type={props.type}
         placeholder={props.placeholder}
       />
-      {props.auxValue !== undefined ? <Form.Control
+      {props.auxPlaceholder ? <Form.Control
         id="secondary"
         value={value.auxValue}
         onChange={(e) => setValue({ auxValue: e.target.value })}
@@ -25,10 +25,6 @@ export default function UpdateForm(props) {
       <Button variant="primary" type="submit">
         Submit
           </Button>
-
-      {/* <Button variant="secondary" type="reset" onClick={reset}>
-              Clear / Cancel
-          </Button> */}
     </Form>
   )
 }
