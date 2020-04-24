@@ -16,8 +16,7 @@ export default class UserUpdateHandler {
         event.preventDefault()
         const {target} = event
         const primary = target.querySelector("#primary")
-        console.log(primary.value)
-        // UserAuthenticationHandler.changeUsername(primary.value)
+        UserAuthenticationHandler.changeUsername(primary.value)
     }
 
     static changePassword(event) {

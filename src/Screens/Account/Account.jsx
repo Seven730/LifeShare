@@ -33,7 +33,7 @@ export default function Account() {
             <AccordionCard header="Update your username" eventKey="1"><UpdateForm
               value=""
               placeholder="enter new username"
-              submitCallback={() => { }}
+              submitCallback={UserUpdateHandler.changeUsername}
             /></AccordionCard>
             <AccordionCard header="Update your password" eventKey="2"><UpdateForm
               value=""

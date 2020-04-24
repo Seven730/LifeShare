@@ -66,13 +66,23 @@ export default class UserAuthenticationHandler {
             .catch(e => console.error(e))
     }
 
-    static changeEmail(newEmail, onErrorMessageHandler = () => {}) {
+    static changeEmail(newEmail, onErrorMessageHandler = () => { }) {
         const user = AUTH().currentUser
         if (!user) return
         user.updateEmail(newEmail)
-            .then(() => {
-                
-            }).catch((error) => {
+            .then(() => UserAuthenticationHandler.redirectToHome())
+            .catch((error) => {
+                console.error(error)
+                return onErrorMessageHandler(error.message)
+            })
+    }
+
+    static changeUsername(username, onErrorMessageHandler = () => { }) {
+        const user = AUTH().currentUser
+        if (!user) return
+        user.updateProfile({ displayName: username })
+        .then(() => UserAuthenticationHandler.redirectToHome())
+            .catch(error => {
                 console.error(error)
                 return onErrorMessageHandler(error.message)
             })
