@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import "./MyPhotosStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
-import ImageCardUploaded from "./ImageCardUploaded";
 import { Link } from "react-router-dom";
+import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
 
 export default function MyPhotos() {
+  const [user, setUser] = useState({})
+  UserAuthenticationHandler.addListener(user=>setUser(user))
+  if(!user)UserAuthenticationHandler.redirectToHome()
   return (
     <div>
       <NavigationBar />
