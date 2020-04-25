@@ -13,14 +13,13 @@ export default function ImageCard(props) {
     const docRef = db.collection("users").doc(props.value.userId)
     docRef.get().then(function (doc) {
       if (doc.exists) {
-        console.log("Document data:", doc.data());
+        console.log("Document data:", doc.data().username)
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
-
-      setUser(doc.data())
-      return doc.data()
+      setUser(doc.data().username)
+      return doc.data().username
     })
   }
   getUsername();

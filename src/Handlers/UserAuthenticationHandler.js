@@ -4,11 +4,26 @@ import { path as ImageGalleryPath } from "../Screens/ImageGallery/ImageGallery"
 import { path as HomePath } from "../Screens/Home/Home"
 import { createBrowserHistory } from "history"
 
+import "firebase/firestore"
 const AUTH = firebase.auth;
 
 const PASSWORD_SHOULD_BE_THE_SAME = "Passwords should be the same"
 
 export default class UserAuthenticationHandler {
+
+
+    // static stateChanged(user) {
+    //     if (user) UserAuthenticationHandler.refreshCallbacks(UserAuthenticationHandler._onLoggedInCallbacks, UserAuthenticationHandler.getUserIfPresent())
+    //     else UserAuthenticationHandler.refreshCallbacks(UserAuthenticationHandler._onLoggedOutCallbacks, UserAuthenticationHandler.getUserIfPresent())
+    // }
+
+    // static onLoggedOut(callback, callbackId) {
+    //     UserAuthenticationHandler._onLoggedOutCallbacks[callbackId] = callback
+    // }
+
+    // static onLoggedIn(callback, callbackId) {
+    //     UserAuthenticationHandler._onLoggedInCallbacks[callbackId] = callback
+    // }
 
     static addListener(callback) {
         AUTH().onAuthStateChanged(callback)
@@ -30,9 +45,19 @@ export default class UserAuthenticationHandler {
         const { email, password, username } = state;
         AUTH().createUserWithEmailAndPassword(email, password)
             .then((user) => {
-                AUTH().currentUser.updateProfile({ displayName: username })
-                    .then(user => {
-                        UserAuthenticationHandler.redirectToImages()
+                const currUser = firebase.auth().currentUser
+                currUser.updateProfile({ displayName: username })
+                    .then(() => {
+                        console.log(currUser);
+                        firebase.firestore().collection('users').doc(currUser.uid).set({
+                            email: currUser.email,
+                            username: currUser.displayName
+
+                        })
+                            .then(() => {
+                                UserAuthenticationHandler.redirectToImages()
+                            })
+
                     })
             })
             .catch((error) => {
