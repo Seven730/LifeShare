@@ -1,7 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import {path as ImageGalleryPath} from "../Screens/ImageGallery/ImageGallery"
-import {path as HomePath} from "../Screens/Home/Home"
+import { path as ImageGalleryPath } from "../Screens/ImageGallery/ImageGallery"
+import { path as HomePath } from "../Screens/Home/Home"
 import { createBrowserHistory } from "history"
 
 
@@ -17,7 +17,7 @@ export default class UserAuthenticationHandler {
         return { error: true, message }
     }
 
- 
+
     static validateRegistration(state) {
         const { password, passwordRepeat } = state;
         if (password !== passwordRepeat) return UserAuthenticationHandler.setValidationResult(PASSWORD_SHOULD_BE_THE_SAME)
@@ -29,16 +29,27 @@ export default class UserAuthenticationHandler {
         const { email, password, username } = state;
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((user) => {
-                firebase.auth().currentUser.updateProfile({displayName:username})
-                .then(user=>{
-                    UserAuthenticationHandler.redirectToImages()
-                })
+                const currUser = firebase.auth().currentUser
+                currUser.updateProfile({ displayName: username })
+                    .then(() => {
+                        console.log(currUser);
+                        firebase.firestore().collection('users').doc(currUser.uid).set({
+                            email: currUser.email,
+                            username: currUser.displayName
+
+                        })
+                            .then(() => {
+                                UserAuthenticationHandler.redirectToImages()
+                            })
+
+                    })
             })
             .catch((error) => {
                 console.error(error)
                 return onErrorMessageHandler(error.message)
             })
     }
+
 
     static signInWithPassword(state, onErrorMessageHandler) {
         const { email, password } = state;
