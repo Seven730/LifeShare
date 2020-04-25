@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import 'firebase/storage';
 
 var config = {
   apiKey: "AIzaSyCwg9pmTfUTOw4QKKgftBvJWuJEXvgSGto",
@@ -32,3 +33,9 @@ ReactDOM.hydrate(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+const storage = firebase.storage();
+
+export {
+  storage, firebase as default
+}

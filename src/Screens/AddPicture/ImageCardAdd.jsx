@@ -1,9 +1,20 @@
 import React, { useCallback, useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
+import { storage } from "../../index.jsx"
+import * as firebase from "firebase/app";
+import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
+import "firebase/firestore"
+
 
 export default function ImageCardAdd() {
   const defaultImage = "Upload.png";
+
+  const [user, setUser] = useState({});
+
+  UserAuthenticationHandler.addListener((user) => setUser(user));
+
+  const defaultUrl = "https://www.pngkey.com/png/full/260-2601842_upload-cad-files-sign.png"
 
   const reset = () => {
     setImageSource(defaultImage);
@@ -11,14 +22,46 @@ export default function ImageCardAdd() {
   };
 
   const onDrop = useCallback((acceptedFiles) => {
-    const fileReader = new FileReader();
-    fileReader.onload = () => setImageSource(fileReader.result);
-    fileReader.readAsDataURL(acceptedFiles[0]);
+    const fileReader = new FileReader()
+    // fileReader.onload = () => setImageSource(fileReader.result)
+    fileReader.readAsDataURL(acceptedFiles[0])
+    fileReader.onload = () => {
+      const binaryStr = fileReader.result
+      setImageSource(binaryStr)
+      setFile(acceptedFiles[0])
+    }
+
   }, []);
 
-  const [description, setDescription] = useState("");
-  const [imageSource, setImageSource] = useState(defaultImage);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const save = async () => {
+    console.log(user)
+
+    const db = firebase.firestore()
+    const data = await db.collection("posts").add({
+      content: description,
+      heartCount: 0,
+      userId: user.uid,
+      whenAdded: Date.now(),
+    })
+
+
+    var storageRef = storage.ref();
+    var fileRef = storageRef.child(data.im.path.segments[1]);
+
+    fileRef.put(file)
+      .then(snapshot => {
+        console.log('Uploaded.');
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  const [description, setDescription] = useState("")
+  const [file, setFile] = useState("")
+  const [imageSource, setImageSource] = useState(defaultUrl)
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
 
   return (
     <div>
@@ -61,6 +104,7 @@ export default function ImageCardAdd() {
               variant="primary"
               type="submit"
               className="addPictureButton"
+              onClick={save}
             >
               Add picture
             </Button>
