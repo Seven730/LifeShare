@@ -9,7 +9,6 @@ import "firebase/firestore"
 
 export default function ImageCardAdd() {
 
-  const [user, setUser] = useState({});
 
   UserAuthenticationHandler.addListener((user) => setUser(user));
 
@@ -32,20 +31,26 @@ export default function ImageCardAdd() {
 
   }, []);
 
-  const save = async () => {
-    console.log(user)
+  const save = async (event) => {
 
+    event.preventDefault()
     const db = firebase.firestore()
     const data = await db.collection("posts").add({
       content: description,
       heartCount: 0,
       userId: user.uid,
       whenAdded: Date.now(),
+      postId: ""
     })
 
 
     var storageRef = storage.ref();
-    var fileRef = storageRef.child(data.im.path.segments[1]);
+    storageRef.child(user.uid);
+    var fileRef = storageRef.child(`${user.uid}/${data.im.path.segments[1]}`);
+    db.collection("posts").doc(`${data.im.path.segments[1]}`).update({
+      postId: data.im.path.segments[1]
+    }
+    )
 
     fileRef.put(file)
       .then(snapshot => {
@@ -60,6 +65,7 @@ export default function ImageCardAdd() {
   const [file, setFile] = useState("")
   const [imageSource, setImageSource] = useState(defaultUrl)
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const [user, setUser] = useState({});
 
 
   return (

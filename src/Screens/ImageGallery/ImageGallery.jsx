@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 import ImageCard from "./ImageCard";
+import * as firebase from "firebase/app";
+import "firebase/firestore"
 
 export function ImageGallery() {
+
+  const db = firebase.firestore()
+
+  const getMarker = async () => {
+    const snapshot = await db.collection('posts').get()
+
+    return snapshot.docs.map(doc => doc.data());
+  }
+
+  const [elements, setElements] = useState([])
+  const elem = []
+  const downloadPhotos = async () => {
+    var photos = await getMarker();
+    for (let photo of photos) {
+
+      elem.push(<ImageCard value={photo} />);
+    }
+    setElements(elem)
+  }
+  if (elements.length == 0) {
+    downloadPhotos();
+  }
   return (
     <div>
       <NavigationBar />
-      <ImageCard />
+      {elements}
     </div>
   );
 }

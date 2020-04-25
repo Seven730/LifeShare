@@ -1,25 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import "./ImageGalleryStyle.css";
+import * as firebase from "firebase/app";
+import "firebase/firestore"
 
-export default function ImageCard() {
+
+
+export default function ImageCard(props) {
+  console.log(props.value.userId)
+  const db = firebase.firestore()
+  const getUsername = () => {
+    const docRef = db.collection("users").doc(props.value.userId)
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+
+      setUser(doc.data())
+      return doc.data()
+    })
+  }
+  getUsername();
+
+
+  const [user, setUser] = useState("")
+  const [url, setUrl] = useState("")
+
+  const getPhoto = () => {
+    const ref = firebase.storage().ref(`${props.value.userId}/${props.value.postId}`);
+    const url = ref.getDownloadURL()
+      .then((url) => {
+        setUrl(url)
+        return url
+      })
+  }
+  getPhoto();
+
+  // console.log(props.value.content)
+
   return (
     <div>
       <Card className="imageCard">
         <Card.Img
           className="imgCardIMG"
           variant="top"
-          src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&w=1000&q=80"
+          // src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&w=1000&q=80"
+          src={url}
         />
         <Card.Body>
           <Card.Title className="imgCardBar">
-            <p className="title titleCard">image by ...</p>
+            <p className="title titleCard">{user}</p>
           </Card.Title>
           <Card.Text>
-            This is a description of this beautiful image. It's really a
-            beautiful image. Some would say this is the most beautiful image.
-            Really beautiful. Like beautiful beautiful. Not like fake beautiful.
-            Proper beautiful.
+            {props.value.content}
           </Card.Text>
           <div className="imgCardBottom">
             <p className="title giveItAHeart">give it a heart!</p>
