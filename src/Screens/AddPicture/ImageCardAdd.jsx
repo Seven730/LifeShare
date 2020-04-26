@@ -8,12 +8,12 @@ import "firebase/firestore"
 
 
 export default function ImageCardAdd() {
-  const defaultImage = "Upload.png";
+
 
 
   UserAuthenticationHandler.addListener((user) => setUser(user));
-
   const defaultUrl = "https://www.pngkey.com/png/full/260-2601842_upload-cad-files-sign.png"
+  const defaultImage = "Upload.png";
 
   const reset = () => {
     setImageSource(defaultImage);
@@ -105,6 +105,7 @@ export default function ImageCardAdd() {
               type="description"
               placeholder="Type in your description.."
             />
+
             <br></br>
             <Button
               variant="primary"
@@ -114,6 +115,7 @@ export default function ImageCardAdd() {
             >
               Add picture
             </Button>
+
             <Button variant="secondary" type="reset" onClick={reset}>
               Cancel
             </Button>

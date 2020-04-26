@@ -66,6 +66,7 @@ export default class UserAuthenticationHandler {
             })
     }
 
+
     static signInWithPassword(state, onErrorMessageHandler) {
         const { email, password } = state;
         AUTH().signInWithEmailAndPassword(email, password)

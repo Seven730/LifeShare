@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 import ImageCard from "./ImageCard";
+
+import * as firebase from "firebase/app";
+import "firebase/firestore"
 import { CardDeck } from "react-bootstrap";
 import * as firebase from "firebase/app";
 import "firebase/firestore"
+
 
 export function ImageGallery() {
 
