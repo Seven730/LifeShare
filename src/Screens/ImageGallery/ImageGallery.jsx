@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 import ImageCard from "./ImageCard";
+
 import * as firebase from "firebase/app";
 import "firebase/firestore"
+import { CardDeck } from "react-bootstrap";
+
 
 export function ImageGallery() {
 
@@ -31,7 +34,9 @@ export function ImageGallery() {
   return (
     <div>
       <NavigationBar />
-      {elements}
+      <CardDeck className="imageCardDeck">
+        {elements}
+      </CardDeck>
     </div>
   );
 }

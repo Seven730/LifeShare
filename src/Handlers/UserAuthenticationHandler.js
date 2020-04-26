@@ -4,13 +4,14 @@ import { path as ImageGalleryPath } from "../Screens/ImageGallery/ImageGallery"
 import { path as HomePath } from "../Screens/Home/Home"
 import { createBrowserHistory } from "history"
 
+const AUTH = firebase.auth;
 
 const PASSWORD_SHOULD_BE_THE_SAME = "Passwords should be the same"
 
 export default class UserAuthenticationHandler {
 
     static addListener(callback) {
-        firebase.auth().onAuthStateChanged(callback)
+        AUTH().onAuthStateChanged(callback)
     }
 
     static setValidationResult(message) {
@@ -27,8 +28,9 @@ export default class UserAuthenticationHandler {
 
     static register(state, onErrorMessageHandler) {
         const { email, password, username } = state;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        AUTH().createUserWithEmailAndPassword(email, password)
             .then((user) => {
+
                 const currUser = firebase.auth().currentUser
                 currUser.updateProfile({ displayName: username })
                     .then(() => {
@@ -53,7 +55,7 @@ export default class UserAuthenticationHandler {
 
     static signInWithPassword(state, onErrorMessageHandler) {
         const { email, password } = state;
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        AUTH().signInWithEmailAndPassword(email, password)
             .then(() => {
                 UserAuthenticationHandler.redirectToImages()
             })
@@ -65,15 +67,53 @@ export default class UserAuthenticationHandler {
     }
 
     static signInWithProvider(provider) {
-        firebase.auth().signInWithPopup(provider).then(result => {
+        AUTH().signInWithPopup(provider).then(result => {
             UserAuthenticationHandler.redirectToHome()
         })
     }
 
     static signOut() {
-        firebase.auth().signOut()
+        AUTH().signOut()
             .then(() => UserAuthenticationHandler.redirectToHome())
             .catch(e => console.error(e))
+    }
+
+    static changeEmail(newEmail, onErrorMessageHandler = () => { }) {
+        const user = AUTH().currentUser
+        if (!user) return
+        user.updateEmail(newEmail)
+            .then(() => UserAuthenticationHandler.redirectToHome())
+            .catch((error) => {
+                console.error(error)
+                return onErrorMessageHandler(error.message)
+            })
+    }
+
+    static changeUsername(username, onErrorMessageHandler = () => { }) {
+        const user = AUTH().currentUser
+        if (!user) return
+        user.updateProfile({ displayName: username })
+            .then(() => UserAuthenticationHandler.redirectToHome())
+            .catch(error => {
+                console.error(error)
+                return onErrorMessageHandler(error.message)
+            })
+    }
+
+    static changePassword(password, passwordRepeat, onErrorMessageHandler = () => { }) {
+        const user = AUTH().currentUser
+        if (!user) return
+        const result = UserAuthenticationHandler.validateRegistration({ password, passwordRepeat })
+        if (result.error) {
+            onErrorMessageHandler(result.message)
+            return
+        }
+        user.updatePassword(password)
+            .then(() => UserAuthenticationHandler.redirectToHome())
+            .catch(error => {
+                console.error(error)
+                return onErrorMessageHandler(error.message)
+            })
     }
 
     static redirectToImages() {
@@ -86,5 +126,6 @@ export default class UserAuthenticationHandler {
         history.push(HomePath)
         history.go()
     }
+    
 
 }

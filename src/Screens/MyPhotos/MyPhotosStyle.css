@@ -1,6 +1,14 @@
 .info {
-  margin-top: 38vh;
+  margin-top: 36vh;
+  margin-left: 1%;
+  margin-right: 1%;
   display: flex;
   justify-content: center;
   font-family: "Quicksand", sans-serif;
+}
+.info2 {
+  display: flex;
+  justify-content: center;
+  margin-left: 1%;
+  margin-right: 1%;
 }
