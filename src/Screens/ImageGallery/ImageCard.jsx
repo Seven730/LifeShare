@@ -38,8 +38,6 @@ export default function ImageCard(props) {
   }
   getPhoto();
 
-  // console.log(props.value.content)
-
   return (
     <div>
       <Card className="imageCard">
