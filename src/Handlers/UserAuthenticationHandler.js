@@ -30,9 +30,20 @@ export default class UserAuthenticationHandler {
         const { email, password, username } = state;
         AUTH().createUserWithEmailAndPassword(email, password)
             .then((user) => {
-                AUTH().currentUser.updateProfile({ displayName: username })
-                    .then(user => {
-                        UserAuthenticationHandler.redirectToImages()
+
+                const currUser = firebase.auth().currentUser
+                currUser.updateProfile({ displayName: username })
+                    .then(() => {
+                        console.log(currUser);
+                        firebase.firestore().collection('users').doc(currUser.uid).set({
+                            email: currUser.email,
+                            username: currUser.displayName
+
+                        })
+                            .then(() => {
+                                UserAuthenticationHandler.redirectToImages()
+                            })
+
                     })
             })
             .catch((error) => {
@@ -40,6 +51,7 @@ export default class UserAuthenticationHandler {
                 return onErrorMessageHandler(error.message)
             })
     }
+
 
     static signInWithPassword(state, onErrorMessageHandler) {
         const { email, password } = state;
