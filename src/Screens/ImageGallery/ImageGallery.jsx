@@ -28,7 +28,7 @@ export function ImageGallery() {
     }
     setElements(elem)
   }
-  if (elements.length == 0) {
+  if (!elements.length) {
     downloadPhotos();
   }
   return (
