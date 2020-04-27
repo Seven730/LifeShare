@@ -1,14 +1,12 @@
 .imageCardDeck {
   display: flex;
   justify-content: center;
-  /* display: inline; */
-  /* margin-left: 70px; */
-  /* margin-right: 5%; */
+  width: 100%;
 }
 
 .imageCard {
   width: 70vh;
-  margin-top: 15%;
+  margin-top: 5%;
   height: auto;
   display: inline;
 }
@@ -54,5 +52,8 @@
   }
 }
 
-/* @media screen and (max-width: 740px) {
-} */
+@media screen and (max-width: 1024px) {
+  .imageCard {
+    margin-left: 3% !important;
+  }
+}

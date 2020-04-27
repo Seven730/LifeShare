@@ -1,5 +1,6 @@
 .navigationBar {
-  width: 100%;
+  width: auto;
+  /* height: 80px; */
 }
 
 .mr-auto {

@@ -1,22 +1,18 @@
 import React, { useCallback, useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
-import { storage } from "../../index.jsx"
+import { storage } from "../../index.jsx";
 import * as firebase from "firebase/app";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
-import "firebase/firestore"
-
+import "firebase/firestore";
 
 export default function ImageCardAdd() {
-
-
-
   UserAuthenticationHandler.addListener((user) => setUser(user));
 
-  const defaultUrl = "https://www.pngkey.com/png/full/260-2601842_upload-cad-files-sign.png"
+  // const defaultUrl =
+  //   "https://www.pngkey.com/png/full/260-2601842_upload-cad-files-sign.png";
 
   const defaultImage = "Upload.png";
-
 
   const reset = () => {
     setImageSource(defaultImage);
@@ -24,54 +20,52 @@ export default function ImageCardAdd() {
   };
 
   const onDrop = useCallback((acceptedFiles) => {
-
-    const fileReader = new FileReader()
+    const fileReader = new FileReader();
     // fileReader.onload = () => setImageSource(fileReader.result)
-    fileReader.readAsDataURL(acceptedFiles[0])
+    fileReader.readAsDataURL(acceptedFiles[0]);
     fileReader.onload = () => {
-      const binaryStr = fileReader.result
-      setImageSource(binaryStr)
-      setFile(acceptedFiles[0])
-    }
-
+      const binaryStr = fileReader.result;
+      setImageSource(binaryStr);
+      setFile(acceptedFiles[0]);
+    };
   }, []);
 
   const save = async (event) => {
+    if (imageSource === "Upload.png") {
+    } else {
+      event.preventDefault();
+      const db = firebase.firestore();
+      const data = await db.collection("posts").add({
+        content: description,
+        heartCount: 0,
+        userId: user.uid,
+        whenAdded: Date.now(),
+        postId: "",
+      });
 
-    event.preventDefault()
-    const db = firebase.firestore()
-    const data = await db.collection("posts").add({
-      content: description,
-      heartCount: 0,
-      userId: user.uid,
-      whenAdded: Date.now(),
-      postId: ""
-    })
+      var storageRef = storage.ref();
+      storageRef.child(user.uid);
+      var fileRef = storageRef.child(`${user.uid}/${data.im.path.segments[1]}`);
+      db.collection("posts").doc(`${data.im.path.segments[1]}`).update({
+        postId: data.im.path.segments[1],
+      });
 
-
-    var storageRef = storage.ref();
-    storageRef.child(user.uid);
-    var fileRef = storageRef.child(`${user.uid}/${data.im.path.segments[1]}`);
-    db.collection("posts").doc(`${data.im.path.segments[1]}`).update({
-      postId: data.im.path.segments[1]
+      fileRef
+        .put(file)
+        .then((snapshot) => {
+          console.log("Uploaded.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    )
+  };
 
-    fileRef.put(file)
-      .then(snapshot => {
-        console.log('Uploaded.');
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }
-
-  const [description, setDescription] = useState("")
-  const [file, setFile] = useState("")
-  const [imageSource, setImageSource] = useState(defaultUrl)
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState("");
+  const [imageSource, setImageSource] = useState(defaultImage);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const [user, setUser] = useState({});
-
 
   return (
     <div>
@@ -96,11 +90,7 @@ export default function ImageCardAdd() {
         </div>
 
         <Card.Body>
-          {/* <Card.Title className="imgCardBar">
-            <p className="title titleCard">your image</p>
-          </Card.Title> */}
           <Form>
-            {/* <Form.Label>Description</Form.Label> */}
             <Form.Control
               as="textarea"
               rows="2"
