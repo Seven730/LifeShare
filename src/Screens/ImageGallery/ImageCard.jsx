@@ -1,40 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import "./ImageGalleryStyle.css";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 
 export default function ImageCard(props) {
-  console.log(props.value.userId);
   const db = firebase.firestore();
-  const getUsername = () => {
-    const docRef = db.collection("users").doc(props.value.userId);
-    docRef.get().then(function (doc) {
-      if (doc.exists) {
-        console.log("Document data:", doc.data().username);
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-      setUser(doc.data().username);
-      return doc.data().username;
-    });
-  };
-  getUsername();
-
   const [user, setUser] = useState("");
   const [url, setUrl] = useState("");
 
-  const getPhoto = () => {
+  const getUsername = async () => {
+    const docRef = await db.collection("users").doc(props.value.userId);
+    const user = await docRef.get();
+    if (!user.exists) {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+      return;
+    }
+    return user.data().username;
+  };
+  useEffect(() => {
+    getUsername().then((username) => setUser(username));
+    getPhoto().then((url) => setUrl(url));
+  });
+
+  const getPhoto = async () => {
     const ref = firebase
       .storage()
       .ref(`${props.value.userId}/${props.value.postId}`);
-    const url = ref.getDownloadURL().then((url) => {
-      setUrl(url);
-      return url;
-    });
+    return await ref.getDownloadURL();
   };
-  getPhoto();
 
   return (
     <div>
