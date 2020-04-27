@@ -23,16 +23,11 @@ export function Home() {
           </div>
           <div>
             <ConditionalLoginOrRegister loggedIn={isLoggedIn} />
-            <Button variant="info" className="homeButtons">
+            <Button variant="info" className="downloadAppButton">
               Download the app!
             </Button>{" "}
           </div>
         </center>
-        {/* <img
-          className="homeIMG"
-          src="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-          alt="home screen img"
-        ></img> */}
       </div>
     </div>
   );

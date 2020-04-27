@@ -9,7 +9,7 @@ export default function GoogleLoginForm() {
   };
 
   return (
-    <Button className="homeButtons" onClick={login}>
+    <Button variant="dark" className="signInWithGoogleButton" onClick={login}>
       Sign in with Google
     </Button>
   );
