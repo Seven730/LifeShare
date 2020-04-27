@@ -27,9 +27,8 @@ export default function EmailLoginForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+    <Form className="loginForm" onSubmit={handleSubmit}>
+      <Form.Group controlId="formEmail">
         <Form.Control
           value={email}
           onChange={handleEmailChange}
@@ -38,8 +37,7 @@ export default function EmailLoginForm() {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+      <Form.Group controlId="formPassword">
         <Form.Control
           value={password}
           onChange={handlePasswordChange}

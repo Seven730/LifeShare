@@ -7,17 +7,13 @@ import EmailLoginForm from "./Forms/EmailLoginForm";
 export default function Login() {
   return (
     <div>
+      <h1 className="headerRegister">LifeShare</h1>
       <div className="auth-wrapper">
         <div className="in-wrapper">
-          <div className="col-md">
-            <h3>Login</h3>
-            <EmailLoginForm />
-            {/* <FacebookLoginForm /> */}
-            <p>Twitter</p>
-            <div>
-              <Link to="/">back</Link>
-            </div>
-          </div>
+          <h3>Sign In</h3>
+          <EmailLoginForm />
+          {/* <FacebookLoginForm /> */}
+          {/* <p>Twitter</p> */}
         </div>
       </div>
     </div>

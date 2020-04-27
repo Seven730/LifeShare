@@ -48,9 +48,8 @@ html,
 .forgot-password {
   text-align: right;
   font-size: 1rem;
-  padding-top: 10px;
   color: #7f7d7d;
-  margin-right: 1%;
+  margin-right: 2%;
   margin-bottom: auto;
 }
 
@@ -63,16 +62,16 @@ html,
   justify-content: center;
   height: auto;
   width: auto;
-  margin-top: 20vh;
+  margin-top: 3vh;
 }
 
 .in-wrapper {
-  background: white;
-  opacity: 90%;
+  background: ivory;
   width: 50%;
   border-radius: 20px;
   border-style: 4px solid;
   border-color: lavender;
+  box-shadow: 1.8px 1.8px lightgrey;
 }
 
 .auth-wrapper h3 {
@@ -88,7 +87,7 @@ html,
 #formPassword,
 #formPasswordRepeat {
   width: 70%;
-  margin-top: 2.5%;
+  margin-top: 2%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 4%;
@@ -97,8 +96,43 @@ html,
 
 .btn.btn-primary.btn-block {
   width: 70%;
-  margin-top: 2.5%;
+  margin-top: 2%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 4%;
+}
+
+.headerRegister {
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+  font-family: "Kaushan Script", cursive;
+  font-size: 530%;
+}
+
+@media screen and (max-width: 1024px) {
+  .in-wrapper {
+    background: none;
+    width: 100%;
+    box-shadow: none;
+  }
+  .headerRegister {
+    margin-top: 0;
+    font-size: 370%;
+  }
+  #formUsername,
+  #formEmail,
+  #formPassword,
+  #formPasswordRepeat {
+    width: 70%;
+  }
+  .btn.btn-primary.btn-block {
+    width: 70%;
+  }
+  .auth-wrapper h3 {
+    margin-top: 1%;
+  }
+  .forgot-password {
+    text-align: center;
+  }
 }

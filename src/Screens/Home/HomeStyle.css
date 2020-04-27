@@ -3,7 +3,8 @@
 }
 
 .header {
-  margin-top: 20vh;
+  margin-top: 11.5vh;
+  margin-bottom: 2vh;
   display: flex;
   justify-content: center;
   font-family: "Kaushan Script", cursive;
@@ -13,39 +14,56 @@
 .description {
   font-size: 170%;
   font-family: "Quicksand", sans-serif;
-  width: 40%;
+  width: 30%;
+  margin-bottom: 6vh;
 }
 
-.homeButtons {
-  width: calc(12% - 10px);
+.signInButton {
+  width: 15%;
+  margin-right: 1%;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+.signUpButton {
+  width: 15%;
 }
 
-.grid #left {
-  grid-column: 1 / 2;
-  margin: 20%;
+.signInWithGoogleButton {
+  width: 31.25%;
+  margin-top: 1%;
 }
 
-.grid #right {
-  grid-column: 2 / 2;
-  display: flex;
-  justify-content: center;
-  margin: auto;
+.downloadAppButton {
+  width: 31.25%;
+  margin-top: 1%;
 }
 
-.grid #right .homeIMG {
-  max-width: 100%;
-  max-height: 100vh;
-  width: fit-content;
-  height: fit-content;
-}
-
-body {
+@media screen and (max-width: 1024px) {
+  .header {
+    margin-top: 0;
+    font-size: 370%;
+    margin-bottom: 4vh;
+  }
+  .description {
+    font-size: 120%;
+    width: 90%;
+    margin-bottom: 20vh;
+  }
+  .signInButton {
+    width: 36%;
+    margin-right: 4%;
+  }
+  .signUpButton {
+    width: 36%;
+  }
+  .signInWithGoogleButton {
+    width: 77%;
+    margin-top: 4%;
+  }
+  .downloadAppButton {
+    visibility: hidden;
+    display: none;
+    clear: both;
+    width: 82%;
+    margin-top: 1%;
+  }
 }

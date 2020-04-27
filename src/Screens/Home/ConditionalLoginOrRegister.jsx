@@ -7,28 +7,32 @@ export default function ConditionalLoginOrRegister(props) {
   console.log(props);
   return !props.loggedIn ? (
     <div>
-      {" "}
-      <Link to="login">
-        <Button variant="light" className="homeButtons">
-          Sign In
-        </Button>
-      </Link>{" "}
-      <GoogleLoginForm />
-      <Link to="register">
-        <Button variant="dark" className="homeButtons">
-          Sign Up
-        </Button>
-      </Link>{" "}
+      <div>
+        {" "}
+        <Link to="login">
+          <Button variant="primary" className="signInButton">
+            Sign In
+          </Button>
+        </Link>{" "}
+        <Link to="register">
+          <Button variant="primary" className="signUpButton">
+            Sign Up
+          </Button>
+        </Link>{" "}
+      </div>
+      <div>
+        <GoogleLoginForm />
+      </div>
     </div>
   ) : (
     <div>
       <Link to="imageGallery">
-        <Button variant="light" className="homeButtons">
+        <Button variant="primary" className="signInButton">
           Image Gallery
         </Button>
       </Link>{" "}
       <Link to="myPhotos">
-        <Button variant="light" className="homeButtons">
+        <Button variant="primary" className="signUpButton">
           My photos
         </Button>
       </Link>{" "}
