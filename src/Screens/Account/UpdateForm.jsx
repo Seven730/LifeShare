@@ -5,9 +5,8 @@ import { Form, Button } from 'react-bootstrap'
 export default function UpdateForm(props) {
 
   const [value, setValue] = useState({ value: props.value, auxValue: props.auxValue, password: "" })
-
   return (
-    <Form>
+    <Form onSubmit={props.submitCallback}>
       <Form.Control
         id="primary"
         value={value.value}
