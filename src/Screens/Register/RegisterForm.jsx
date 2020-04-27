@@ -61,6 +61,7 @@ export default function RegisterForm() {
         <Form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
           <Form.Group controlId="formUsername">
+            {/* <Form.Label>Username</Form.Label> */}
             <Form.Control
               value={username}
               onChange={handlerUsernameChange}
@@ -99,7 +100,7 @@ export default function RegisterForm() {
             Submit
           </Button>
           <p className="forgot-password text-right">
-            Already registered? <a href="#">sign in</a>
+            Already registered? <a href="/login">Sign in</a>
           </p>
           <ConditionalError errorMessage={errorMessage} />
         </Form>

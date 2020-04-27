@@ -1,52 +1,48 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import * as firebase from "firebase/app";
-import "firebase/firestore"
+import "firebase/firestore";
 // import "./ImageGalleryStyle.css";
-import "firebase/storage"
-
+import "firebase/storage";
 
 export default function ImageCardUploaded(props) {
+  const [content, setContent] = useState("");
+  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
+  const [url, setUrl] = useState("");
 
-
-  const [content, setContent] = useState("")
-  const [userId, setUserId] = useState("")
-  const [username, setUsername] = useState("")
-  const [url, setUrl] = useState("")
-
-  const db = firebase.firestore()
+  const db = firebase.firestore();
   const getPost = () => {
-    const docRef = db.collection("posts").doc(props.value.name)
+    const docRef = db.collection("posts").doc(props.value.name);
     docRef.get().then(function (doc) {
       if (doc.exists) {
       } else {
         console.log("No such data!");
       }
-      setContent(doc.data().content)
-      setUserId(doc.data().userId)
+      setContent(doc.data().content);
+      setUserId(doc.data().userId);
 
-      const docRe = db.collection("users").doc(doc.data().userId)
+      const docRe = db.collection("users").doc(doc.data().userId);
       docRe.get().then(function (name) {
-        setUsername(name.data().username)
+        setUsername(name.data().username);
 
-        const ref = firebase.storage().ref(`${doc.data().userId}/${props.value.name}`);
-        ref.getDownloadURL()
-          .then((url) => {
-            setUrl(url)
-            return url
-          })
-
-      })
-    })
-  }
+        const ref = firebase
+          .storage()
+          .ref(`${doc.data().userId}/${props.value.name}`);
+        ref.getDownloadURL().then((url) => {
+          setUrl(url);
+          return url;
+        });
+      });
+    });
+  };
   getPost();
 
   const deletePhoto = () => {
-    db.collection("posts").doc(props.value.name).delete()
-    firebase.storage().ref(`${userId}/${props.value.name}`).delete()
+    db.collection("posts").doc(props.value.name).delete();
+    firebase.storage().ref(`${userId}/${props.value.name}`).delete();
     //przeładuj strone asia :)
   };
-
 
   return (
     <div>
@@ -59,11 +55,9 @@ export default function ImageCardUploaded(props) {
         />
         <Card.Body>
           <Card.Title className="imgCardBar">
-            <p className="title titleCard"> {username}</p>
+            <p className="title titleCard">{username}</p>
           </Card.Title>
-          <Card.Text>
-            {content}}
-          </Card.Text>
+          <Card.Text>{content}</Card.Text>
           <div className="imgCardBottom">
             <button onClick={deletePhoto}>Delete Image</button>
             <input

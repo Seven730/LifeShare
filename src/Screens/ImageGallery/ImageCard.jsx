@@ -2,58 +2,49 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import "./ImageGalleryStyle.css";
 import * as firebase from "firebase/app";
-import "firebase/firestore"
-
-
+import "firebase/firestore";
 
 export default function ImageCard(props) {
-  console.log(props.value.userId)
-  const db = firebase.firestore()
+  console.log(props.value.userId);
+  const db = firebase.firestore();
   const getUsername = () => {
-    const docRef = db.collection("users").doc(props.value.userId)
+    const docRef = db.collection("users").doc(props.value.userId);
     docRef.get().then(function (doc) {
       if (doc.exists) {
-        console.log("Document data:", doc.data().username)
+        console.log("Document data:", doc.data().username);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
-      setUser(doc.data().username)
-      return doc.data().username
-    })
-  }
+      setUser(doc.data().username);
+      return doc.data().username;
+    });
+  };
   getUsername();
 
-
-  const [user, setUser] = useState("")
-  const [url, setUrl] = useState("")
+  const [user, setUser] = useState("");
+  const [url, setUrl] = useState("");
 
   const getPhoto = () => {
-    const ref = firebase.storage().ref(`${props.value.userId}/${props.value.postId}`);
-    const url = ref.getDownloadURL()
-      .then((url) => {
-        setUrl(url)
-        return url
-      })
-  }
+    const ref = firebase
+      .storage()
+      .ref(`${props.value.userId}/${props.value.postId}`);
+    const url = ref.getDownloadURL().then((url) => {
+      setUrl(url);
+      return url;
+    });
+  };
   getPhoto();
 
   return (
     <div>
       <Card className="imageCard">
-        <Card.Img
-          className="imgCardIMG"
-          variant="top"
-          // src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&w=1000&q=80"
-          src={url}
-        />
+        <Card.Img className="imgCardIMG" variant="top" src={url} />
         <Card.Body>
           <Card.Title className="imgCardBar">
             <p className="title titleCard">{user}</p>
           </Card.Title>
-          <Card.Text>
-            {props.value.content}
-          </Card.Text>
+          <Card.Text>{props.value.content}</Card.Text>
           <div className="imgCardBottom">
             <p className="title giveItAHeart">give it a heart!</p>
             <input

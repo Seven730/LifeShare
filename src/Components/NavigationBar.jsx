@@ -33,9 +33,9 @@ export default function NavigationBar() {
           </Nav>
         </Navbar.Collapse>
         <h5 className="name">{email}</h5>
-        <h5 className="signOut" onClick={UserAuthenticationHandler.signOut}>
+        {/* <h5 className="signOut" onClick={UserAuthenticationHandler.signOut}>
           Sign Out
-        </h5>
+        </h5> */}
       </Navbar>
     </div>
   );
