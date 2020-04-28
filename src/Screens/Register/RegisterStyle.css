@@ -22,6 +22,11 @@ span {
   font-family: "Quicksand", sans-serif;
 }
 
+.navbar-light {
+  background-color: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
 body,
 html,
 .App,
@@ -31,9 +36,20 @@ html,
   height: 100%;
 }
 
-.navbar-light {
-  background-color: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+  margin-top: 3vh;
+}
+
+.auth-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+  margin-top: 5%;
 }
 
 .auth-wrapper .form-control:focus {
@@ -57,14 +73,6 @@ html,
   color: #167bff;
 }
 
-.auth-wrapper {
-  display: flex;
-  justify-content: center;
-  height: auto;
-  width: auto;
-  margin-top: 3vh;
-}
-
 .in-wrapper {
   background: ivory;
   width: 50%;
@@ -72,14 +80,6 @@ html,
   border-style: 4px solid;
   border-color: lavender;
   box-shadow: 1.8px 1.8px lightgrey;
-}
-
-.auth-wrapper h3 {
-  text-align: center;
-  margin: 0;
-  line-height: 1;
-  padding-bottom: 20px;
-  margin-top: 5%;
 }
 
 #formUsername,

@@ -1,57 +1,66 @@
 import React, { useState } from "react";
 import "./AccountStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
-import { Accordion, Button } from "react-bootstrap"
-import AccordionCard from "./AccordionCard"
-import UpdateForm from "./UpdateForm"
+import { Accordion, Button } from "react-bootstrap";
+import AccordionCard from "./AccordionCard";
+import UpdateForm from "./UpdateForm";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
-import UserUpdateHandler from "../../Handlers/UserUpdateHandler"
-import ConditionalError from '../../Components/ConditionalError'
+import UserUpdateHandler from "../../Handlers/UserUpdateHandler";
+import ConditionalError from "../../Components/ConditionalError";
 
 export default function Account() {
   const [user, setUser] = useState({});
-  const [errorMessage, setError]  = useState("")
+  const [errorMessage, setError] = useState("");
   UserAuthenticationHandler.addListener((user) => setUser(user));
-  UserUpdateHandler.errorHandler = setError
+  UserUpdateHandler.errorHandler = setError;
 
-  if (!user)UserAuthenticationHandler.redirectToHome()
+  if (!user) UserAuthenticationHandler.redirectToHome();
 
   return (
     <div>
       <NavigationBar />
-      <div className="auth-wrapper">
-        <div className="in-wrapper">
-          <h1>Current email: {user.email}</h1>
-          <h1>Current name: {user.displayName}</h1>
+      <div className="auth-wrapperAccount">
+        <div className="in-wrapperAccount">
           <ConditionalError errorMessage={errorMessage} />
-
+          <h3 className="accountTitle">Your Account</h3>
           <Accordion>
-            <AccordionCard header="Update your e-mail address" eventKey="0">
+            <AccordionCard header="Update e-mail address" eventKey="0">
+              <h5>Current email: {user.email}</h5>
               <UpdateForm
                 value=""
-                placeholder="enter new e-mail address"
+                placeholder="Enter new email"
                 submitCallback={UserUpdateHandler.changeEmail}
               />
             </AccordionCard>
-            <AccordionCard header="Update your username" eventKey="1"><UpdateForm
-              value=""
-              placeholder="enter new username"
-              submitCallback={UserUpdateHandler.changeUsername}
-            /></AccordionCard>
-            <AccordionCard header="Update your password" eventKey="2"><UpdateForm
-              value=""
-              auxValue=""
-              placeholder="enter new password"
-              auxPlaceholder="confirm new password"
-              type="password"
-              submitCallback={UserUpdateHandler.changePassword}
-            /></AccordionCard>
+            <AccordionCard header="Update username" eventKey="1">
+              <h5>Current name: {user.displayName}</h5>
+              <UpdateForm
+                value=""
+                placeholder="Enter new username"
+                submitCallback={UserUpdateHandler.changeUsername}
+              />
+            </AccordionCard>
+            <AccordionCard header="Update password" eventKey="2">
+              <UpdateForm
+                value=""
+                auxValue=""
+                placeholder="Enter new password"
+                auxPlaceholder="Repeat new password"
+                type="password"
+                submitCallback={UserUpdateHandler.changePassword}
+              />
+            </AccordionCard>
           </Accordion>
-          <Button type="secondary" onClick={UserAuthenticationHandler.signOut}>Sign out / Logout</Button>
+          <Button
+            className="signOutButton"
+            variant="secondary"
+            type="primary"
+            onClick={UserAuthenticationHandler.signOut}
+          >
+            Sign Out
+          </Button>
         </div>
-
       </div>
-
     </div>
   );
 }

@@ -13,21 +13,23 @@ export function Home() {
   return (
     <div id="homePage">
       <div className="homePageWrapper">
-        <h1 className="header">LifeShare</h1>
-        <center>
-          <div className="description">
-            <p>
-              Upload beautiful pictures and share your favourite moments with
-              everyone!
-            </p>
-          </div>
-          <div>
-            <ConditionalLoginOrRegister loggedIn={isLoggedIn} />
-            <Button variant="info" className="downloadAppButton">
-              Download the app!
-            </Button>{" "}
-          </div>
-        </center>
+        <div className="in-wrapperHome">
+          <center>
+            <h1 className="header">LifeShare</h1>
+            <div className="description">
+              <p>
+                Upload beautiful pictures and share your favourite moments with
+                everyone!
+              </p>
+            </div>
+            <div>
+              <ConditionalLoginOrRegister loggedIn={isLoggedIn} />
+              <Button variant="info" className="downloadAppButton">
+                Download mobile app!
+              </Button>{" "}
+            </div>
+          </center>
+        </div>
       </div>
     </div>
   );

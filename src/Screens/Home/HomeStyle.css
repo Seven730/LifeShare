@@ -3,7 +3,7 @@
 }
 
 .header {
-  margin-top: 11.5vh;
+  margin-top: 2vh;
   margin-bottom: 2vh;
   display: flex;
   justify-content: center;
@@ -14,39 +14,55 @@
 .description {
   font-size: 170%;
   font-family: "Quicksand", sans-serif;
-  width: 30%;
+  width: 60%;
   margin-bottom: 6vh;
 }
 
 .signInButton {
-  width: 15%;
-  margin-right: 1%;
+  width: 30%;
+  margin-right: 2%;
 }
 
 .signUpButton {
-  width: 15%;
+  width: 30%;
 }
 
 .signInWithGoogleButton {
-  width: 31.25%;
-  margin-top: 1%;
+  width: 62.5%;
+  margin-top: 2%;
 }
 
 .downloadAppButton {
-  width: 31.25%;
-  margin-top: 1%;
+  width: 62.5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.homePageWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.in-wrapperHome {
+  margin-top: 11.5vh;
+  /* background: ivory; */
+  width: 50%;
+  border-radius: 20px;
+  border-style: 5px solid;
+  /* border-color: lavender; */
+  /* box-shadow: 1.8px 1.8px lightgrey; */
 }
 
 @media screen and (max-width: 1024px) {
   .header {
-    margin-top: 0;
+    margin-top: -16%;
     font-size: 370%;
-    margin-bottom: 4vh;
+    margin-bottom: 5vh;
   }
   .description {
     font-size: 120%;
     width: 90%;
-    margin-bottom: 20vh;
+    margin-bottom: 16vh;
   }
   .signInButton {
     width: 36%;
@@ -65,5 +81,14 @@
     clear: both;
     width: 82%;
     margin-top: 1%;
+  }
+  .in-wrapperHome {
+    margin-top: none;
+    background: none;
+    width: 100%;
+    box-shadow: none;
+  }
+  .homePageWrapper {
+    margin-top: none;
   }
 }

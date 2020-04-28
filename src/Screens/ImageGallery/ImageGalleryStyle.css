@@ -29,16 +29,30 @@
 }
 
 .heartIcon {
-  width: 30px;
+  opacity: 90%;
+  width: 32px;
   height: auto;
+  margin-top: auto;
   margin-bottom: auto;
 }
 
+.heartIcon:focus {
+  outline: none;
+}
+
+.heartIcon:hover {
+  opacity: 100%;
+}
+
 .title.giveItAHeart {
+  margin-bottom: auto;
+  margin-top: auto;
   margin-right: 10px;
 }
 
 .title.titleCounter {
+  margin-top: auto;
+  margin-bottom: auto;
   margin-left: 8px;
 }
 
