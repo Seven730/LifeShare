@@ -1,5 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 import { path as ImageGalleryPath } from "../Screens/ImageGallery/ImageGallery"
 import { path as HomePath } from "../Screens/Home/Home"
 import { createBrowserHistory } from "history"
@@ -7,7 +8,6 @@ import { path as MyGalleryPath } from "../Screens/MyPhotos/MyPhotos"
 
 
 const AUTH = firebase.auth;
-
 const PASSWORD_SHOULD_BE_THE_SAME = "Passwords should be the same"
 
 export default class UserAuthenticationHandler {
@@ -41,10 +41,9 @@ export default class UserAuthenticationHandler {
                             email: currUser.email,
                             username: currUser.displayName
 
+                        }).then(() => {
+                            UserAuthenticationHandler.redirectToImages()
                         })
-                            .then(() => {
-                                UserAuthenticationHandler.redirectToImages()
-                            })
 
                     })
             })
@@ -70,7 +69,11 @@ export default class UserAuthenticationHandler {
 
     static signInWithProvider(provider) {
         AUTH().signInWithPopup(provider).then(result => {
-            UserAuthenticationHandler.redirectToHome()
+            const currUser = AUTH().currentUser
+            firebase.firestore().collection('users').doc(currUser.uid).set({
+                email: currUser.email,
+                username: currUser.displayName
+            }).then(() => { UserAuthenticationHandler.redirectToHome() })
         })
     }
 
@@ -84,7 +87,13 @@ export default class UserAuthenticationHandler {
         const user = AUTH().currentUser
         if (!user) return
         user.updateEmail(newEmail)
-            .then(() => UserAuthenticationHandler.redirectToHome())
+            .then(() => {
+                const currUser = AUTH().currentUser
+                firebase.firestore().collection('users').doc(currUser.uid).set({
+                    email: currUser.email,
+                    username: currUser.displayName
+                }).then(() => { UserAuthenticationHandler.redirectToHome() })
+            })
             .catch((error) => {
                 console.error(error)
                 return onErrorMessageHandler(error.message)
@@ -95,7 +104,13 @@ export default class UserAuthenticationHandler {
         const user = AUTH().currentUser
         if (!user) return
         user.updateProfile({ displayName: username })
-            .then(() => UserAuthenticationHandler.redirectToHome())
+            .then(() => {
+                const currUser = AUTH().currentUser
+                firebase.firestore().collection('users').doc(currUser.uid).set({
+                    email: currUser.email,
+                    username: currUser.displayName
+                }).then(() => { UserAuthenticationHandler.redirectToHome() })
+            })
             .catch(error => {
                 console.error(error)
                 return onErrorMessageHandler(error.message)
