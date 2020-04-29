@@ -3,6 +3,8 @@ import "firebase/auth";
 import { path as ImageGalleryPath } from "../Screens/ImageGallery/ImageGallery"
 import { path as HomePath } from "../Screens/Home/Home"
 import { createBrowserHistory } from "history"
+import { path as MyGalleryPath } from "../Screens/MyPhotos/MyPhotos"
+
 
 const AUTH = firebase.auth;
 
@@ -126,6 +128,11 @@ export default class UserAuthenticationHandler {
         history.push(HomePath)
         history.go()
     }
-    
+    static redirectToMyGallery() {
+        const history = createBrowserHistory()
+        history.push(MyGalleryPath)
+        history.go()
+    }
+
 
 }
