@@ -6,9 +6,22 @@ import "firebase/storage";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
 
 export default function ImageCardUploaded(props) {
-  const [data, setData] = useState({});
 
+  const [data, setData] = useState({});
+  const [hearts, setHearts] = useState(props.value.heartCount);
+
+  //name = id posta, user - current user,
   const db = firebase.firestore();
+  const heartsRef = db.collection("hearts");
+  const increment = firebase.firestore.FieldValue.increment(1)
+  const decrement = firebase.firestore.FieldValue.increment(-1)
+  const heartCounterRef = db.collection("posts").doc(props.value.name);
+
+  heartCounterRef
+    .onSnapshot(function (doc) {
+      setHearts(doc.data().heartCount);
+    });
+
   const getPost = async () => {
     const docRef = db.collection("posts").doc(props.value.name);
 
@@ -22,6 +35,7 @@ export default function ImageCardUploaded(props) {
     const username = props.user.displayName;
     const ref = firebase.storage().ref(`${userId}/${props.value.name}`);
     const url = await ref.getDownloadURL();
+
     setData({
       content: post.data().content,
       username,
@@ -41,6 +55,45 @@ export default function ImageCardUploaded(props) {
     UserAuthenticationHandler.redirectToImages();
   };
 
+  const addHeart = () => {
+
+    heartsRef
+      .where("userId", "==", `${props.user.uid}`)
+      .where("postId", "==", `${props.value.name}`)
+      .get()
+      .then(function (snapshot) {
+        console.log(snapshot.empty)
+        if (snapshot.empty === true) {
+          heartIncrement();
+        } else {
+          heartDecrement();
+        }
+      })
+  }
+
+
+  const heartIncrement = () => {
+    heartCounterRef.update({
+      heartCount: increment
+    }).then(() => {
+      heartsRef.doc(`${props.user.uid}_${props.value.name}`).set({
+        postId: props.value.name,
+        userId: props.user.uid
+      })
+    })
+  }
+
+  const heartDecrement = () => {
+    heartsRef.doc(`${props.user.uid}_${props.value.name}`).delete()
+      .then(() => {
+        heartCounterRef.update({
+          heartCount: decrement
+        });
+      })
+
+  }
+
+
   return (
     <div>
       <Card className="imageCard">
@@ -55,12 +108,13 @@ export default function ImageCardUploaded(props) {
           </Button>
           <div className="imgCardBottom">
             <input
+              onClick={addHeart}
               type="image"
               src="https://image.flaticon.com/icons/svg/1216/1216649.svg"
               alt="img"
               className="heartIcon"
             />
-            <p className="title titleCounter">0</p>
+            <p className="title titleCounter">{hearts}</p>
           </div>
         </Card.Body>
       </Card>
