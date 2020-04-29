@@ -3,7 +3,7 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { storage } from "../../index.jsx";
 import * as firebase from "firebase/app";
-import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
+import UserAuthenticationHandler, { redirectToImages } from "../../Handlers/UserAuthenticationHandler";
 import "firebase/firestore";
 
 export default function ImageCardAdd() {
@@ -31,9 +31,9 @@ export default function ImageCardAdd() {
   }, []);
 
   const save = async (event) => {
+    event.preventDefault();
     if (imageSource === "Upload.png") {
     } else {
-      event.preventDefault();
       const db = firebase.firestore();
       const data = await db.collection("posts").add({
         content: description,
@@ -54,10 +54,12 @@ export default function ImageCardAdd() {
         .put(file)
         .then((snapshot) => {
           console.log("Uploaded.");
+          UserAuthenticationHandler.redirectToMyGallery()
+
         })
         .catch((error) => {
           console.log(error);
-        });
+        })
     }
   };
 
@@ -80,13 +82,13 @@ export default function ImageCardAdd() {
               src="Upload2.png"
             />
           ) : (
-            <Card.Img
-              className="imgCardIMG"
-              id="img"
-              variant="top"
-              src={imageSource}
-            />
-          )}
+              <Card.Img
+                className="imgCardIMG"
+                id="img"
+                variant="top"
+                src={imageSource}
+              />
+            )}
         </div>
 
         <Card.Body>

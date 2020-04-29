@@ -14,6 +14,7 @@ export default function MyPhotos() {
 	UserAuthenticationHandler.addListener((user) => setUser(user));
 	if (!user) UserAuthenticationHandler.redirectToHome();
 
+
 	const [urls, setUrls] = useState([]);
 	const elem = [];
 	const storage = firebase.storage();
@@ -35,6 +36,8 @@ export default function MyPhotos() {
 		}
 	});
 
+
+
 	return (
 		<div>
 			<NavigationBar />
@@ -48,8 +51,10 @@ export default function MyPhotos() {
 					</h1>
 				</div>
 			) : (
-				<CardDeck className="imageCardDeck">{urls}</CardDeck>
-			)}
+					<CardDeck className="imageCardDeck">{urls}</CardDeck>
+				)}
 		</div>
 	);
+
 }
+export const path = "/myGallery";
