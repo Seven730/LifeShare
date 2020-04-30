@@ -34,4 +34,5 @@ export function Home() {
     </div>
   );
 }
+
 export const path = "/";

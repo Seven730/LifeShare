@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./ImageGalleryStyle.css";
 import NavigationBar from "../../Components/NavigationBar";
 import ImageCard from "./ImageCard";
-
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { CardDeck } from "react-bootstrap";
