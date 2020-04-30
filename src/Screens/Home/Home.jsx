@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./HomeStyle.css";
-import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ConditionalLoginOrRegister from "./ConditionalLoginOrRegister";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";

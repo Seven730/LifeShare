@@ -6,21 +6,19 @@ import "firebase/storage";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
 
 export default function ImageCardUploaded(props) {
-
   const [data, setData] = useState({});
   const [hearts, setHearts] = useState(props.value.heartCount);
 
   //name = id posta, user - current user,
   const db = firebase.firestore();
   const heartsRef = db.collection("hearts");
-  const increment = firebase.firestore.FieldValue.increment(1)
-  const decrement = firebase.firestore.FieldValue.increment(-1)
+  const increment = firebase.firestore.FieldValue.increment(1);
+  const decrement = firebase.firestore.FieldValue.increment(-1);
   const heartCounterRef = db.collection("posts").doc(props.value.name);
 
-  heartCounterRef
-    .onSnapshot(function (doc) {
-      setHearts(doc.data().heartCount);
-    });
+  heartCounterRef.onSnapshot(function (doc) {
+    setHearts(doc.data().heartCount);
+  });
 
   const getPost = async () => {
     const docRef = db.collection("posts").doc(props.value.name);
@@ -56,43 +54,43 @@ export default function ImageCardUploaded(props) {
   };
 
   const addHeart = () => {
-
     heartsRef
       .where("userId", "==", `${props.user.uid}`)
       .where("postId", "==", `${props.value.name}`)
       .get()
       .then(function (snapshot) {
-        console.log(snapshot.empty)
+        console.log(snapshot.empty);
         if (snapshot.empty === true) {
           heartIncrement();
         } else {
           heartDecrement();
         }
-      })
-  }
-
+      });
+  };
 
   const heartIncrement = () => {
-    heartCounterRef.update({
-      heartCount: increment
-    }).then(() => {
-      heartsRef.doc(`${props.user.uid}_${props.value.name}`).set({
-        postId: props.value.name,
-        userId: props.user.uid
+    heartCounterRef
+      .update({
+        heartCount: increment,
       })
-    })
-  }
+      .then(() => {
+        heartsRef.doc(`${props.user.uid}_${props.value.name}`).set({
+          postId: props.value.name,
+          userId: props.user.uid,
+        });
+      });
+  };
 
   const heartDecrement = () => {
-    heartsRef.doc(`${props.user.uid}_${props.value.name}`).delete()
+    heartsRef
+      .doc(`${props.user.uid}_${props.value.name}`)
+      .delete()
       .then(() => {
         heartCounterRef.update({
-          heartCount: decrement
+          heartCount: decrement,
         });
-      })
-
-  }
-
+      });
+  };
 
   return (
     <div>
@@ -110,7 +108,7 @@ export default function ImageCardUploaded(props) {
             <input
               onClick={addHeart}
               type="image"
-              src="https://image.flaticon.com/icons/svg/1216/1216649.svg"
+              src={require("./heart.svg")}
               alt="img"
               className="heartIcon"
             />
