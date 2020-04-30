@@ -1,0 +1,56 @@
+.auth-wrapperAccount {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+  margin-top: 3vh;
+}
+
+.auth-wrapperAccount h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+  margin-top: 5%;
+}
+
+.auth-wrapperAccount .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+
+.in-wrapperAccount {
+  background: ivory;
+  width: 50%;
+  border-radius: 20px;
+  border-style: 4px solid;
+  border-color: lavender;
+  box-shadow: 1.8px 1.8px lightgrey;
+  margin-top: 10vh;
+}
+
+.accountTitle {
+  margin-bottom: 2% !important;
+}
+
+.signOutButton {
+  width: 100%;
+}
+
+.updateFormButton {
+  margin-top: 3%;
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .auth-wrapperAccount {
+    margin-top: -10vh;
+  }
+  .in-wrapperAccount {
+    background: none;
+    width: 100%;
+    box-shadow: none;
+  }
+}

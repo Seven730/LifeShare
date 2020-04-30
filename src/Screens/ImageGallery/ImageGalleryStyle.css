@@ -1,0 +1,73 @@
+.imageCardDeck {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.imageCard {
+  width: 70vh;
+  margin-top: 5%;
+  height: auto;
+  display: inline;
+}
+
+.imgCardIMG {
+  max-width: 70vh;
+  max-height: 70vh;
+}
+
+.imgCardBar {
+  display: flex;
+  justify-content: center;
+}
+
+.imgCardBottom {
+  display: flex;
+  margin: auto;
+  justify-content: flex-end;
+  float: right;
+}
+
+.heartIcon {
+  opacity: 90%;
+  width: 32px;
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.heartIcon:focus {
+  outline: none;
+}
+
+.heartIcon:hover {
+  opacity: 100%;
+}
+
+.title.giveItAHeart {
+  margin-bottom: auto;
+  margin-top: auto;
+  margin-right: 10px;
+}
+
+.title.titleCounter {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 70vh) {
+  .imageCardDeck {
+    display: inline;
+  }
+  .imageCard {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 70vh) {
+  .imageCard {
+    margin-left: 3% !important;
+  }
+}

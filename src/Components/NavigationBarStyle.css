@@ -1,3 +1,8 @@
+.navigationBar {
+  width: auto;
+  /* height: 80px; */
+}
+
 .mr-auto {
   font-size: 110%;
   margin-left: 1%;
@@ -12,4 +17,20 @@
 .name {
   color: white;
   margin-top: 0.5%;
+}
+
+.signOut {
+  margin-top: 0.5%;
+  margin-left: 2%;
+  color: grey;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 991px) {
+  .name {
+    display: none;
+  }
+  .signOut {
+    display: none;
+  }
 }
