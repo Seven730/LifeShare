@@ -3,7 +3,9 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { storage } from "../../index.jsx";
 import * as firebase from "firebase/app";
-import UserAuthenticationHandler, { redirectToImages } from "../../Handlers/UserAuthenticationHandler";
+import UserAuthenticationHandler, {
+  redirectToImages,
+} from "../../Handlers/UserAuthenticationHandler";
 import "firebase/firestore";
 
 export default function ImageCardAdd() {
@@ -12,7 +14,7 @@ export default function ImageCardAdd() {
   // const defaultUrl =
   //   "https://www.pngkey.com/png/full/260-2601842_upload-cad-files-sign.png";
 
-  const defaultImage = "Upload.png";
+  const defaultImage = require("./Upload.png");
 
   const reset = () => {
     setImageSource(defaultImage);
@@ -32,7 +34,7 @@ export default function ImageCardAdd() {
 
   const save = async (event) => {
     event.preventDefault();
-    if (imageSource === "Upload.png") {
+    if (imageSource === "./Upload.png") {
     } else {
       const db = firebase.firestore();
       const data = await db.collection("posts").add({
@@ -54,12 +56,11 @@ export default function ImageCardAdd() {
         .put(file)
         .then((snapshot) => {
           console.log("Uploaded.");
-          UserAuthenticationHandler.redirectToMyGallery()
-
+          UserAuthenticationHandler.redirectToMyGallery();
         })
         .catch((error) => {
           console.log(error);
-        })
+        });
     }
   };
 
@@ -79,16 +80,16 @@ export default function ImageCardAdd() {
               className="imgCardIMG"
               id="img"
               variant="top"
-              src="Upload2.png"
+              src={require("./Upload2.png")}
             />
           ) : (
-              <Card.Img
-                className="imgCardIMG"
-                id="img"
-                variant="top"
-                src={imageSource}
-              />
-            )}
+            <Card.Img
+              className="imgCardIMG"
+              id="img"
+              variant="top"
+              src={imageSource}
+            />
+          )}
         </div>
 
         <Card.Body>

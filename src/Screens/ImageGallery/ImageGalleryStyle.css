@@ -8,7 +8,7 @@
   width: 70vh;
   margin-top: 5%;
   height: auto;
-  display: inline;
+  display: flex;
 }
 
 .imgCardIMG {

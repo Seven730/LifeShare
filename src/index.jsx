@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import 'firebase/storage';
+import "firebase/storage";
 
 var config = {
   apiKey: "AIzaSyCwg9pmTfUTOw4QKKgftBvJWuJEXvgSGto",
@@ -16,16 +16,16 @@ var config = {
   storageBucket: "psm-64dd2.appspot.com",
   messagingSenderId: "819018796713",
   appId: "1:819018796713:web:fbad54baee82fd6bb223b8",
-  measurementId: "G-3BP14K6VW8"
+  measurementId: "G-3BP14K6VW8",
 };
 firebase.initializeApp(config);
 
 ReactDOM.hydrate(
-  <BrowserRouter>
+  <HashRouter basename="/">
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );
 
@@ -36,6 +36,4 @@ serviceWorker.unregister();
 
 const storage = firebase.storage();
 
-export {
-  storage, firebase as default
-}
+export { storage, firebase as default };

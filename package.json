@@ -2,12 +2,14 @@
   "name": "front",
   "version": "0.1.9",
   "private": true,
+  "homepage": "https://seven730.github.io/LifeShare/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
     "firebase": "^7.12.0",
+    "gh-pages": "^2.2.0",
     "history": "^4.10.1",
     "npm": "^6.14.4",
     "react": "^16.13.1",
@@ -19,6 +21,8 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

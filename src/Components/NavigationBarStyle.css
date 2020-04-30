@@ -14,6 +14,24 @@
   font-size: calc(185% - 10px);
 }
 
+.titleNavbar {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.titleNavbar:hover {
+  text-decoration: none !important;
+}
+
+.navbarLink {
+  color: rgb(180, 180, 180);
+}
+
+.navbarLink:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .name {
   color: white;
   margin-top: 0.5%;
