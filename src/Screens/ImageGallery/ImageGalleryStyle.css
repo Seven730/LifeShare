@@ -29,7 +29,7 @@
 }
 
 .heartIcon {
-  opacity: 90%;
+  /* opacity: 90%; */
   width: 32px;
   height: auto;
   margin-top: auto;
@@ -41,7 +41,7 @@
 }
 
 .heartIcon:hover {
-  opacity: 100%;
+  /* opacity: 100%; */
 }
 
 .title.giveItAHeart {
