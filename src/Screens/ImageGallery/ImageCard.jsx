@@ -99,7 +99,7 @@ export default function ImageCard(props) {
             <p className="title giveItAHeart">give it a heart!</p>
             <input
               type="image"
-              src={require("./heart.svg")}
+              src={require("./heart.png")}
               alt="h"
               className="heartIcon"
               onClick={addHeart}

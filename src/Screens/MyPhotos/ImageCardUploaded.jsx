@@ -108,7 +108,7 @@ export default function ImageCardUploaded(props) {
             <input
               onClick={addHeart}
               type="image"
-              src={require("./heart.svg")}
+              src={require("./heart.png")}
               alt="img"
               className="heartIcon"
             />
