@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NavigationBarStyle.css";
-import { Navbar, Nav, NavbarBrand } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import UserAuthenticationHandler from "../Handlers/UserAuthenticationHandler";
 import { path as HomePath } from "../Screens/Home/Home";
 import { Link } from "react-router-dom";
@@ -29,17 +29,17 @@ export default function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link>
+            <Nav.Link className="navbarLink">
               <Link to="myPhotos" className="navbarLink">
                 My Photos
               </Link>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link className="navbarLink">
               <Link to="imageGallery" className="navbarLink">
                 Image Gallery
               </Link>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link className="navbarLink">
               <Link to="account" className="navbarLink">
                 Account
               </Link>

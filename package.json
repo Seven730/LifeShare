@@ -1,8 +1,9 @@
 {
-  "name": "front",
-  "version": "0.1.9",
+  "name": "lifeshare",
+  "version": "0.1.10",
   "private": true,
-  "homepage": "https://seven730.github.io/LifeShare/",
+  "homepage": "https://wizard.uek.krakow.pl/~s207722/LifeShare",
+  "path": "/~s207722/LifeShare",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -26,7 +27,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "package": "rd /S /Q LifeShare && xcopy build LifeShare /H /E /C /I && tar -cf LifeShare.tar LifeShare/*",
+    "deploy_uek": "sendToUek.bat",
+    "package_deploy_uek": "npm run build && npm run package && npm run deploy_uek"
   },
   "eslintConfig": {
     "extends": "react-app"

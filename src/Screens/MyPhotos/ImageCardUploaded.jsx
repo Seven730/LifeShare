@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
+import RedirectHandler from "../../Handlers/RedirectHandler";
 
 export default function ImageCardUploaded(props) {
   const [data, setData] = useState({});
@@ -25,7 +25,6 @@ export default function ImageCardUploaded(props) {
 
     const post = await docRef.get();
     if (!post.exists) {
-      console.log("No such data!");
       return;
     }
 
@@ -41,16 +40,14 @@ export default function ImageCardUploaded(props) {
       url,
     });
   };
-  useEffect(() => {
-    if (!data.content) {
-      getPost();
-    }
-  });
 
+  if (!data.content) {
+    getPost();
+  }
   const deletePhoto = async () => {
     await db.collection("posts").doc(props.value.name).delete();
     await firebase.storage().ref(`${data.userId}/${props.value.name}`).delete();
-    UserAuthenticationHandler.redirectToImages();
+    RedirectHandler.redirectToImages();
   };
 
   const addHeart = () => {
@@ -59,7 +56,6 @@ export default function ImageCardUploaded(props) {
       .where("postId", "==", `${props.value.name}`)
       .get()
       .then(function (snapshot) {
-        console.log(snapshot.empty);
         if (snapshot.empty === true) {
           heartIncrement();
         } else {

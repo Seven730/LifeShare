@@ -1,8 +1,6 @@
 import React from "react";
 import "./LoginStyle.css";
-import { Link } from "react-router-dom";
 import EmailLoginForm from "./Forms/EmailLoginForm";
-// import FacebookLoginForm from './Forms/FacebookLoginForm'
 
 export default function Login() {
   return (
@@ -12,8 +10,6 @@ export default function Login() {
         <div className="in-wrapper">
           <h3>Sign In</h3>
           <EmailLoginForm />
-          {/* <FacebookLoginForm /> */}
-          {/* <p>Twitter</p> */}
         </div>
       </div>
     </div>
