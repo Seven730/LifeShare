@@ -18,9 +18,9 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
-  "Scope": "/",
+  "start_url": "/~s207722/LifeShare/",
+  "scope": "/~s207722/LifeShare/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#007bff",
+  "background_color": "#007bff"
 }

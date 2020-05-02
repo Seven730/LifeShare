@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 import GoogleLoginForm from "../Login/Forms/GoogleLoginForm";
 
 export default function ConditionalLoginOrRegister(props) {
-  console.log(props);
   return !props.loggedIn ? (
     <div>
       <div>

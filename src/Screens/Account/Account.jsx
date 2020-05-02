@@ -7,14 +7,15 @@ import UpdateForm from "./UpdateForm";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
 import UserUpdateHandler from "../../Handlers/UserUpdateHandler";
 import ConditionalError from "../../Components/ConditionalError";
+import RedirectHandler from "../../Handlers/RedirectHandler";
 
-export default function Account() {
+export function Account() {
   const [user, setUser] = useState({});
   const [errorMessage, setError] = useState("");
   UserAuthenticationHandler.addListener((user) => setUser(user));
   UserUpdateHandler.errorHandler = setError;
 
-  if (!user) UserAuthenticationHandler.redirectToHome();
+  if (!user) RedirectHandler.redirectToHome();
 
   return (
     <div>
@@ -64,3 +65,5 @@ export default function Account() {
     </div>
   );
 }
+
+export const path = "/account";

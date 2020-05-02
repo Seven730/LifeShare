@@ -29,7 +29,6 @@ export default function ImageCard(props) {
     const user = await docRef.get();
     if (!user.exists) {
       // doc.data() will be undefined in this case
-      console.log("No such document!");
       return;
     }
     return user.data().username;
@@ -53,7 +52,6 @@ export default function ImageCard(props) {
       .where("postId", "==", `${props.value.postId}`)
       .get()
       .then(function (snapshot) {
-        console.log(snapshot.empty);
         if (snapshot.empty === true) {
           heartIncrement();
         } else {
