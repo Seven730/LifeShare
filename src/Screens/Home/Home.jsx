@@ -3,14 +3,28 @@ import "./HomeStyle.css";
 import { Button } from "react-bootstrap";
 import ConditionalLoginOrRegister from "./ConditionalLoginOrRegister";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
-import RedirectHandler from "../../Handlers/RedirectHandler";
 
 export function Home() {
   const [isLoggedIn, changeLoginStatus] = useState(false);
-
+  const [prompt, setPrompt] = useState(false);
   UserAuthenticationHandler.addListener((user) => changeLoginStatus(!!user));
 
-  if (isLoggedIn) RedirectHandler.redirectToImages();
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    setPrompt(e);
+  });
+
+  const addToHomeScreen = (e) => {
+    prompt.prompt();
+    prompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the A2HS prompt");
+      } else {
+        console.log("User dismissed the A2HS prompt");
+      }
+      setPrompt(false);
+    });
+  };
 
   return (
     <div id="homePage">
@@ -26,9 +40,15 @@ export function Home() {
             </div>
             <div>
               <ConditionalLoginOrRegister loggedIn={isLoggedIn} />
-              <Button variant="info" className="downloadAppButton">
-                Download mobile app!
-              </Button>{" "}
+              {prompt ? (
+                <Button
+                  variant="info"
+                  className="downloadAppButton"
+                  onClick={addToHomeScreen}
+                >
+                  Download mobile app!
+                </Button>
+              ) : null}
             </div>
           </center>
         </div>
