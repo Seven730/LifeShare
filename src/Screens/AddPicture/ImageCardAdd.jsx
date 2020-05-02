@@ -3,16 +3,12 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import { storage } from "../../index.jsx";
 import * as firebase from "firebase/app";
-import UserAuthenticationHandler, {
-  redirectToImages,
-} from "../../Handlers/UserAuthenticationHandler";
+import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
+import RedirectHandler from "../../Handlers/RedirectHandler";
 import "firebase/firestore";
 
 export default function ImageCardAdd() {
   UserAuthenticationHandler.addListener((user) => setUser(user));
-
-  // const defaultUrl =
-  //   "https://www.pngkey.com/png/full/260-2601842_upload-cad-files-sign.png";
 
   const defaultImage = require("./Upload.png");
 
@@ -23,8 +19,12 @@ export default function ImageCardAdd() {
 
   const onDrop = useCallback((acceptedFiles) => {
     const fileReader = new FileReader();
-    // fileReader.onload = () => setImageSource(fileReader.result)
-    fileReader.readAsDataURL(acceptedFiles[0]);
+    try {
+      fileReader.readAsDataURL(acceptedFiles[0]);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
     fileReader.onload = () => {
       const binaryStr = fileReader.result;
       setImageSource(binaryStr);
@@ -55,11 +55,10 @@ export default function ImageCardAdd() {
       fileRef
         .put(file)
         .then((snapshot) => {
-          console.log("Uploaded.");
-          UserAuthenticationHandler.redirectToMyGallery();
+          RedirectHandler.redirectToMyGallery();
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     }
   };
@@ -67,7 +66,10 @@ export default function ImageCardAdd() {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
   const [imageSource, setImageSource] = useState(defaultImage);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: "image/*",
+  });
   const [user, setUser] = useState({});
 
   return (

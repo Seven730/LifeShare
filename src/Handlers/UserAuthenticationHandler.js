@@ -1,19 +1,21 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { path as ImageGalleryPath } from "../Screens/ImageGallery/ImageGallery"
-import { path as HomePath } from "../Screens/Home/Home"
-import { createBrowserHistory } from "history"
-import { path as MyGalleryPath } from "../Screens/MyPhotos/MyPhotos"
-
+import RedirectHandler from "./RedirectHandler";
 
 const AUTH = firebase.auth;
 const PASSWORD_SHOULD_BE_THE_SAME = "Passwords should be the same"
 
 export default class UserAuthenticationHandler {
 
+    static user;
+
     static addListener(callback) {
-        AUTH().onAuthStateChanged(callback)
+        const myCallback = (user) => {
+            UserAuthenticationHandler.user = user
+            callback(user)
+        }
+        AUTH().onAuthStateChanged(myCallback)
     }
 
     static setValidationResult(message) {
@@ -36,13 +38,12 @@ export default class UserAuthenticationHandler {
                 const currUser = firebase.auth().currentUser
                 currUser.updateProfile({ displayName: username })
                     .then(() => {
-                        console.log(currUser);
                         firebase.firestore().collection('users').doc(currUser.uid).set({
                             email: currUser.email,
                             username: currUser.displayName
 
                         }).then(() => {
-                            UserAuthenticationHandler.redirectToImages()
+                            RedirectHandler.redirectToImages()
                         })
 
                     })
@@ -58,7 +59,7 @@ export default class UserAuthenticationHandler {
         const { email, password } = state;
         AUTH().signInWithEmailAndPassword(email, password)
             .then(() => {
-                UserAuthenticationHandler.redirectToImages()
+                RedirectHandler.redirectToImages()
             })
             .catch((error) => {
                 console.error(error)
@@ -73,13 +74,13 @@ export default class UserAuthenticationHandler {
             firebase.firestore().collection('users').doc(currUser.uid).set({
                 email: currUser.email,
                 username: currUser.displayName
-            }).then(() => { UserAuthenticationHandler.redirectToHome() })
+            }).then(() => { RedirectHandler.redirectToImages() })
         })
     }
 
     static signOut() {
         AUTH().signOut()
-            .then(() => UserAuthenticationHandler.redirectToHome())
+            .then(() => RedirectHandler.redirectToHome())
             .catch(e => console.error(e))
     }
 
@@ -92,7 +93,7 @@ export default class UserAuthenticationHandler {
                 firebase.firestore().collection('users').doc(currUser.uid).set({
                     email: currUser.email,
                     username: currUser.displayName
-                }).then(() => { UserAuthenticationHandler.redirectToHome() })
+                }).then(() => { RedirectHandler.redirectToAccount() })
             })
             .catch((error) => {
                 console.error(error)
@@ -109,7 +110,7 @@ export default class UserAuthenticationHandler {
                 firebase.firestore().collection('users').doc(currUser.uid).set({
                     email: currUser.email,
                     username: currUser.displayName
-                }).then(() => { UserAuthenticationHandler.redirectToHome() })
+                }).then(() => { RedirectHandler.redirectToAccount() })
             })
             .catch(error => {
                 console.error(error)
@@ -126,28 +127,14 @@ export default class UserAuthenticationHandler {
             return
         }
         user.updatePassword(password)
-            .then(() => UserAuthenticationHandler.redirectToHome())
+            .then(() => RedirectHandler.redirectToAccount())
             .catch(error => {
                 console.error(error)
                 return onErrorMessageHandler(error.message)
             })
     }
 
-    static redirectToImages() {
-        const history = createBrowserHistory()
-        history.push(ImageGalleryPath)
-        history.go()
-    }
-    static redirectToHome() {
-        const history = createBrowserHistory()
-        history.push(HomePath)
-        history.go()
-    }
-    static redirectToMyGallery() {
-        const history = createBrowserHistory()
-        history.push(MyGalleryPath)
-        history.go()
-    }
+
 
 
 }

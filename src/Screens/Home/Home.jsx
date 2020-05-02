@@ -3,11 +3,14 @@ import "./HomeStyle.css";
 import { Button } from "react-bootstrap";
 import ConditionalLoginOrRegister from "./ConditionalLoginOrRegister";
 import UserAuthenticationHandler from "../../Handlers/UserAuthenticationHandler";
+import RedirectHandler from "../../Handlers/RedirectHandler";
 
 export function Home() {
   const [isLoggedIn, changeLoginStatus] = useState(false);
 
   UserAuthenticationHandler.addListener((user) => changeLoginStatus(!!user));
+
+  if (isLoggedIn) RedirectHandler.redirectToImages();
 
   return (
     <div id="homePage">
