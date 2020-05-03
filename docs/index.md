@@ -9,7 +9,7 @@ Główne funkcjonalności:
 - autoryzacja użytkownika
 
 - zmienianie danych konta
-![brak obrazka](/account-data-change.png "Zmienianie danych konta")
+![brak obrazka](./account-data-change.png "Zmienianie danych konta")
 - dodawanie i usuwanie zdjęć,
 screen 2
 - reagowanie na zdjęcia użytkowników (like, unlike)
