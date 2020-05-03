@@ -6,12 +6,14 @@ Oddanie użytkownikom proste w obsłudze narzędzie, dzięki któremu będą mog
 
 #### Funkcjonalności aplikacji
 Główne funkcjonalności: 
-- autoryzacja użytkownika,
-screen 1 
+- autoryzacja użytkownika
+
+- zmienianie danych konta
+![brak obrazka](/account-data-change.png "Zmienianie danych konta")
 - dodawanie i usuwanie zdjęć,
 screen 2
 - reagowanie na zdjęcia użytkowników (like, unlike)
 screen 3
 #### Linki do składowych projektu
-Aplikacja na serwerze UEK Wizard: https://wizard.uek.krakow.pl/~s207722/LifeShare/#/
+Aplikacja na serwerze UEK Wizard: https://wizard.uek.krakow.pl/~s207722/LifeShare/#/ <br>
 Prototyp aplikacji: https://marvelapp.com/e69deih/screen/68573180
